@@ -1,0 +1,90 @@
+(kraken-venv)  ✘   ~/Coding/models/german_newspapers/kraken  time nice ketos train -f binary  -o ./20231231/kraken/german_newspapers -d cuda:0 --lag 10 -r 0.0001 -B 4 -w 0 -s '[1,120,0,1 Cr3,13,32 Do0.1,2 Mp2,2 Cr3,13,32 Do0.1,2 Mp2,2 Cr3,9,64 Do0.1,2 Mp2,2 Cr3,9,64 Do0.1,2 S1(1x0)1,3 Lbx200 Do0.1,2 Lbx200 Do.1,2 Lbx200 Do]' german_newspapers_2023_12.arrow 
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+You are using a CUDA device ('NVIDIA RTX A4000 Laptop GPU') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+┏━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃    ┃ Name      ┃ Type                     ┃ Params ┃                 In sizes ┃                Out sizes ┃
+┡━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ 0  │ val_cer   │ CharErrorRate            │      0 │                        ? │                        ? │
+│ 1  │ val_wer   │ WordErrorRate            │      0 │                        ? │                        ? │
+│ 2  │ net       │ MultiParamSequential     │  4.1 M │  [[1, 1, 120, 400], '?'] │   [[1, 264, 1, 50], '?'] │
+│ 3  │ net.C_0   │ ActConv2D                │  1.3 K │  [[1, 1, 120, 400], '?'] │ [[1, 32, 120, 400], '?'] │
+│ 4  │ net.Do_1  │ Dropout                  │      0 │ [[1, 32, 120, 400], '?'] │ [[1, 32, 120, 400], '?'] │
+│ 5  │ net.Mp_2  │ MaxPool                  │      0 │ [[1, 32, 120, 400], '?'] │  [[1, 32, 60, 200], '?'] │
+│ 6  │ net.C_3   │ ActConv2D                │ 40.0 K │  [[1, 32, 60, 200], '?'] │  [[1, 32, 60, 200], '?'] │
+│ 7  │ net.Do_4  │ Dropout                  │      0 │  [[1, 32, 60, 200], '?'] │  [[1, 32, 60, 200], '?'] │
+│ 8  │ net.Mp_5  │ MaxPool                  │      0 │  [[1, 32, 60, 200], '?'] │  [[1, 32, 30, 100], '?'] │
+│ 9  │ net.C_6   │ ActConv2D                │ 55.4 K │  [[1, 32, 30, 100], '?'] │  [[1, 64, 30, 100], '?'] │
+│ 10 │ net.Do_7  │ Dropout                  │      0 │  [[1, 64, 30, 100], '?'] │  [[1, 64, 30, 100], '?'] │
+│ 11 │ net.Mp_8  │ MaxPool                  │      0 │  [[1, 64, 30, 100], '?'] │   [[1, 64, 15, 50], '?'] │
+│ 12 │ net.C_9   │ ActConv2D                │  110 K │   [[1, 64, 15, 50], '?'] │   [[1, 64, 15, 50], '?'] │
+│ 13 │ net.Do_10 │ Dropout                  │      0 │   [[1, 64, 15, 50], '?'] │   [[1, 64, 15, 50], '?'] │
+│ 14 │ net.S_11  │ Reshape                  │      0 │   [[1, 64, 15, 50], '?'] │   [[1, 960, 1, 50], '?'] │
+│ 15 │ net.L_12  │ TransposedSummarizingRNN │  1.9 M │   [[1, 960, 1, 50], '?'] │   [[1, 400, 1, 50], '?'] │
+│ 16 │ net.Do_13 │ Dropout                  │      0 │   [[1, 400, 1, 50], '?'] │   [[1, 400, 1, 50], '?'] │
+│ 17 │ net.L_14  │ TransposedSummarizingRNN │  963 K │   [[1, 400, 1, 50], '?'] │   [[1, 400, 1, 50], '?'] │
+│ 18 │ net.Do_15 │ Dropout                  │      0 │   [[1, 400, 1, 50], '?'] │   [[1, 400, 1, 50], '?'] │
+│ 19 │ net.L_16  │ TransposedSummarizingRNN │  963 K │   [[1, 400, 1, 50], '?'] │   [[1, 400, 1, 50], '?'] │
+│ 20 │ net.Do_17 │ Dropout                  │      0 │   [[1, 400, 1, 50], '?'] │   [[1, 400, 1, 50], '?'] │
+│ 21 │ net.O_18  │ LinSoftmax               │  105 K │   [[1, 400, 1, 50], '?'] │   [[1, 264, 1, 50], '?'] │
+└────┴───────────┴──────────────────────────┴────────┴──────────────────────────┴──────────────────────────┘
+Trainable params: 4.1 M                                                                                                                                                                
+Non-trainable params: 0                                                                                                                                                                
+Total params: 4.1 M                                                                                                                                                                    
+Total estimated model params size (MB): 16                                                                                                                                             
+stage 0/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:03 • 0:00:00 14.33it/s val_accuracy: 0.985 val_word_accuracy: 0.928  early_stopping: 0/10 0.98519
+stage 1/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:05 • 0:00:00 14.21it/s val_accuracy: 0.989 val_word_accuracy: 0.949  early_stopping: 0/10 0.98946
+stage 2/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:05 • 0:00:00 14.16it/s val_accuracy: 0.991 val_word_accuracy: 0.956  early_stopping: 0/10 0.99098
+stage 3/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:52 • 0:00:00 14.31it/s val_accuracy: 0.992 val_word_accuracy: 0.961  early_stopping: 0/10 0.99178
+stage 4/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:57 • 0:00:00 14.44it/s val_accuracy: 0.992 val_word_accuracy: 0.962  early_stopping: 0/10 0.99218
+stage 5/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:57 • 0:00:00 14.26it/s val_accuracy: 0.993 val_word_accuracy: 0.966  early_stopping: 0/10 0.99289
+stage 6/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:57 • 0:00:00 14.13it/s val_accuracy: 0.993 val_word_accuracy: 0.966  early_stopping: 0/10 0.99292
+stage 7/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:57 • 0:00:00 14.20it/s val_accuracy: 0.993 val_word_accuracy: 0.966  early_stopping: 1/10 0.99292
+stage 8/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:59 • 0:00:00 14.02it/s val_accuracy: 0.993 val_word_accuracy: 0.969  early_stopping: 0/10 0.99344
+stage 9/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:54 • 0:00:00 14.13it/s val_accuracy: 0.993 val_word_accuracy: 0.968  early_stopping: 1/10 0.99344
+stage 10/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:01 • 0:00:00 14.28it/s val_accuracy: 0.993 val_word_accuracy: 0.969  early_stopping: 2/10 0.99344
+stage 11/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:02 • 0:00:00 14.25it/s val_accuracy: 0.994 val_word_accuracy: 0.97  early_stopping: 0/10 0.99362
+stage 12/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:03 • 0:00:00 14.16it/s val_accuracy: 0.994 val_word_accuracy: 0.97  early_stopping: 0/10 0.99363
+stage 13/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:00 • 0:00:00 14.30it/s val_accuracy: 0.994 val_word_accuracy: 0.97  early_stopping: 0/10 0.99371
+stage 14/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:56 • 0:00:00 14.11it/s val_accuracy: 0.994 val_word_accuracy: 0.971  early_stopping: 0/10 0.99380
+stage 15/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:59 • 0:00:00 14.20it/s val_accuracy: 0.994 val_word_accuracy: 0.971  early_stopping: 0/10 0.99385
+stage 16/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:54 • 0:00:00 14.08it/s val_accuracy: 0.994 val_word_accuracy: 0.971  early_stopping: 0/10 0.99390
+stage 17/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:57 • 0:00:00 14.18it/s val_accuracy: 0.994 val_word_accuracy: 0.971  early_stopping: 1/10 0.99390
+stage 18/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:56 • 0:00:00 14.34it/s val_accuracy: 0.994 val_word_accuracy: 0.97  early_stopping: 2/10 0.99390
+stage 19/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:02 • 0:00:00 13.84it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 0/10 0.99395
+stage 20/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:52 • 0:00:00 14.17it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 0/10 0.99401
+stage 21/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:54 • 0:00:00 14.28it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 1/10 0.99401
+stage 22/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:58 • 0:00:00 14.34it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 0/10 0.99402
+stage 23/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:55 • 0:00:00 14.00it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 0/10 0.99406
+stage 24/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:56 • 0:00:00 14.13it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 0/10 0.99414
+stage 25/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:57 • 0:00:00 14.17it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 1/10 0.99414
+stage 26/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:03 • 0:00:00 14.15it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 2/10 0.99414
+stage 27/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:06 • 0:00:00 13.90it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 0/10 0.99419
+stage 28/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:01 • 0:00:00 14.10it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 1/10 0.99419
+stage 29/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:51 • 0:00:00 14.54it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 2/10 0.99419
+stage 30/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:57 • 0:00:00 14.15it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 3/10 0.99419
+stage 31/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:57 • 0:00:00 14.12it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 4/10 0.99419
+stage 32/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:58 • 0:00:00 14.48it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 5/10 0.99419
+stage 33/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:58 • 0:00:00 14.24it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 6/10 0.99419
+stage 34/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:55 • 0:00:00 14.31it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 7/10 0.99419
+stage 35/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:57 • 0:00:00 14.18it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 8/10 0.99419
+stage 36/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:52 • 0:00:00 14.09it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 9/10 0.99419
+stage 37/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:55 • 0:00:00 13.97it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 0/10 0.99427
+stage 38/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:03 • 0:00:00 14.23it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 0/10 0.99431
+stage 39/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:00 • 0:00:00 14.23it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 1/10 0.99431
+stage 40/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:54 • 0:00:00 14.38it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 2/10 0.99431
+stage 41/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:55 • 0:00:00 14.08it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 3/10 0.99431
+stage 42/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:58:51 • 0:00:00 14.06it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 4/10 0.99431
+stage 43/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 1:00:04 • 0:00:00 13.78it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 5/10 0.99431
+stage 44/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:54 • 0:00:00 13.70it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 6/10 0.99431
+stage 45/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:59 • 0:00:00 14.05it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 7/10 0.99431
+stage 46/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 1:00:00 • 0:00:00 13.61it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 8/10 0.99431
+stage 47/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 1:00:03 • 0:00:00 13.76it/s val_accuracy: 0.994 val_word_accuracy: 0.973  early_stopping: 9/10 0.99431
+stage 48/∞ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50088/50088 0:59:58 • 0:00:00 13.85it/s val_accuracy: 0.994 val_word_accuracy: 0.972  early_stopping: 10/10 0.99431
+Moving best model ./20231231/kraken/german_newspapers_38.mlmodel (0.9943079948425293) to ./20231231/default/kraken.mlmodel
+nice ketos train -f binary -o ./20231231/kraken/german_newspapers -d cuda:0   210504,49s user 7813,78s system 119% cpu 50:42:36,20 total
+
