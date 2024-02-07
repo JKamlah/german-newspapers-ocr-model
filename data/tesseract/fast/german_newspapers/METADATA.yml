@@ -6,7 +6,7 @@ model:
   defaultmodel: >-
     https://github.com/JKamlah/german-newspapers-ocr-model/tree/main/data/tesseract/fast/german_newspapers/german_newspapers_2023.traineddata
   description: |-
-    OCR model for German newspapers trained from several datasets.
+    OCR model for german newspapers trained from several datasets.
     Fast model variant for Tesseract.
     See https://github.com/UB-Mannheim/kraken/wiki/Training-german-newspapers
   fileformat: .traineddata
