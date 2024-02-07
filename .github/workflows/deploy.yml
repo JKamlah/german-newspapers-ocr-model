@@ -1,0 +1,71 @@
+name: model-repo
+on:
+  push:
+    tags:
+      - '[vV]{0,1}[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+
+jobs:
+  gh-pages:
+    name: pages and readme
+    runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      contents: write
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v3
+
+      # Combine installation steps to reduce the number of steps and improve readability
+      - name: Install dependencies
+        run: |
+          git clone https://github.com/jkamlah/ocr-model-repo-scripts.git
+          git clone https://github.com/tboenig/gt-guidelines.git
+          sudo apt-get update
+          sudo apt-get install -y jq python3 python3-poetry
+
+      # Setup Python environment in a single step
+      - name: Setup Python and dependencies
+        run: |
+          cd ocr-model-repo-scripts/
+          poetry install
+          source $(poetry env info --path)/bin/activate
+
+      # Run scripts as a single job to avoid repetitive activation of the environment
+      - name: Process metadata and update documentation
+        run: |
+          cd ocr-model-repo-scripts/
+          source $(poetry env info --path)/bin/activate
+          poetry run python3 scripts/model.py yaml2json ../
+          poetry run python3 scripts/model.py metadata ../
+          poetry run python3 scripts/model.py index ../
+          poetry run python3 scripts/model.py readme ../ --title ${{ github.event.repository.name }} --gh-url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          mv index.md ../docs/
+          cp scripts/table_hide.css scripts/levelparser.css scripts/lang.js scripts/_config.yml ../docs/
+
+      # Add a step to check for changes
+      - name: Check for changes
+        id: changes_check
+        run: |
+          if git diff --quiet; then
+            echo "No changes detected."
+            echo "CHANGES_DETECTED=false" >> $GITHUB_ENV
+          else
+            echo "Changes detected."
+            echo "CHANGES_DETECTED=true" >> $GITHUB_ENV
+          fi
+
+      # Conditional commit step
+      - name: Commit and Push changes
+        if: env.CHANGES_DETECTED == 'true'
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git add docs/
+          git add data/
+          git commit -m "[Automatic] Update README and METADATA"
+          git push origin HEAD:main
