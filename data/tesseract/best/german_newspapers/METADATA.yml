@@ -1,7 +1,7 @@
 schema: >-
   https://github.com/JKamlah/ocr-model-metadata/tree/master/schema/2022-03-15/schema.json
 model:
-  name: German print
+  name: German newspapers
   repo: https://github.com/JKamlah/german-newspapers-ocr-model
   defaultmodel: >-
     https://github.com/JKamlah/german-newspapers-ocr-model/tree/main/data/tesseract/best/german_newspapers/german_newspapers_2023.traineddata
