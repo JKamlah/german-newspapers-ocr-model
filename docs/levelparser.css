@@ -1,0 +1,295 @@
+@font-face {
+    font-family: JuniusVF;
+    src: url('https://psb1558.github.io/Junicode-font/webfiles/JuniusVF.woff2');
+
+
+    font-weight: 300 700;
+    font-stretch: 60% 100%;
+    font-style: normal;
+}
+
+button.bilanguage {
+    background-color: #c8ab37;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 5px 10px;
+    display: block;
+    font-size: 16px;
+    margin-left: auto;
+    margin-right: 0;
+    cursor: pointer;
+    float: none;
+}
+
+:root {
+    --language: data-en;
+}
+.bilanguage::after {
+    content: attr(var(--language));
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.level {
+    visibility: hidden;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    font-family: Bitter, 'Noto Serif', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif, JuniusVF;
+    font-size: 14px;
+    color: #232323;
+    background-color: #FBFAF7;
+    line-height: 1.8em;
+}
+
+table {
+    border-top-left-radius: 15px;
+    padding: 8px;
+    font-family: Bitter, 'Noto Serif', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif, JuniusVF;
+    border-spacing: 10px;
+    display: table;
+}
+
+.volumelevel {
+    margin-bottom: 1%;
+    width: 120%;
+}
+
+.pagelevel {
+    border: 1px solid #ccc;
+    width: 120%;
+}
+
+table[class = volumelevel] tr td {
+    padding: 5px;
+}
+
+.vname, .dname, .guidelines, .guidelines, .sumchar, .time, .description, .url {
+    background:local;
+}
+
+.vname::before {
+    content: "Volume/Corpus title: ";
+}
+.dname::before {
+    content: "Filename: ";
+}
+.guidelines::before {
+    content: "Transcription Guidelines: ";
+}
+.sumchar::before {
+    content: "Number of characters and space: ";
+}
+.time::before {
+    content: "Time: "
+}
+.description::before {
+    content: "Description: ";
+}
+.url::before {
+    content: "URL: ";
+}
+
+.ssl1,
+.ssl2,
+.ssl3, 
+.sl1,
+.sl2,
+.sl3 {
+    display: block;
+}
+
+td.l1,
+td.l2,
+td.l3 {
+    width: 120px;
+    text-align: right;
+    background: local;
+}
+.ssl1::before,
+.sl1::before {
+    content: "Level 1: ";
+}
+.ssl1::after,
+.sl1::after,
+.ssl2::after,
+.sl2::after,
+.ssl3::after,
+.sl3::after {
+    content: " characters";
+}
+.ssl2::before,
+.sl2::before {
+    content: "Level 2: ";
+}
+
+.ssl3::before,
+.sl3::before {
+    content: "Level 3: ";
+}
+
+[title]::before {
+    content: attr(title) ": ";
+    width: 520px;
+    display: inline-block;
+    padding: 3px;
+}
+
+.l1::before,
+.l2::before,
+.l3::before {
+    content: attr(char) ": ";
+    color: grey;
+}
+
+
+
+
+
+.key1::before {
+    content: "TxtRegion: ";
+}
+.key2::before {
+    content: "ImgRegion: ";
+}
+.key3::before {
+    content: "LineDrawRegion: ";
+}
+.key4::before {
+    content: "GraphRegion: ";
+}
+.key5::before {
+    content: "TabRegion: ";
+}
+.key6::before {
+    content: "ChartRegion: ";
+}
+.key7::before {
+    content: "SepRegion: ";
+}
+.key8::before {
+    content: "MathRegion: ";
+}
+.key9::before {
+    content: "MathRegion: ";
+}
+.key10::before {
+    content: "ChemRegion: ";
+}
+.key11::before {
+    content: "MusicRegion: ";
+}
+.key12::before {
+    content: "AdRegion: ";
+}
+.key13::before {
+    content: "UnkownRegion: ";
+}
+.key14::before {
+    content: "CustomRegion: ";
+}
+.key15::before {
+    content: "TextLine: ";
+}
+.key16::before {
+    content: "Page: ";
+}
+
+.key1,
+.key2,
+.key3,
+.key4,
+.key5,
+.key6,
+.key7,
+.key8,
+.key9,
+.key10,
+.key11,
+.key12,
+.key13,
+.key14,
+.key15,
+.key16,
+.infolegend
+{
+    display: block;
+    
+}
+
+dl.grid { 
+  display: grid; 
+  grid-template-columns: 1fr 100%; 
+}
+dd { 
+  margin: 0; 
+  padding-left: 1em; 
+}
+dl.grid dd {
+  margin-bottom: 1em;
+}
+
+ul.grid-l {
+  display: grid;
+  /*grid-template-columns: auto auto auto;*/
+  padding: 10px;
+  grid-template-columns: 1fr 50%;
+}
+
+
+
+
+summary.infolegend::before {
+    content: "\1F4A1 "; 
+}
+
+td.infolegend {
+    vertical-align: top; 
+}
+
+
+details {
+    line-height: 40px;
+    margin-left: 40px;
+    width: 120%;
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+summary.volume:before {
+    content: "\1F4DA ";
+    font-size: 20px;
+}
+
+
+summary:before {
+    content: "\1F4DC ";
+    font-size: 20px;
+}
+
+summary {
+    display: block;
+    cursor: pointer;
+    outline: 0;
+}
+
+.leveldesc {
+    border: 1px solid #ddd;
+    border-top-left-radius: 15px;
+    background-color: #c8ab3714;
+    padding: 5px;
+}
+
+
+.main {
+    display: block;
+    margin-left: 15em;
+    min-width: 16em;
+}

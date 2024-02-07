@@ -1,0 +1,28 @@
+{
+    "schema": "https://github.com/JKamlah/ocr-model-metadata/tree/master/schema/2022-03-15/schema.json",
+    "model": {
+        "name": "German newspapers",
+        "repo": "https://github.com/JKamlah/german-newspapers-ocr-model",
+        "defaultmodel": "https://github.com/JKamlah/german-newspapers-ocr-model/tree/main/data/tesseract/fast/german_newspapers/german_newspapers_2023.traineddata",
+        "description": "OCR model for german newspapers trained from several datasets.\nFast model variant for Tesseract.\nSee https://github.com/UB-Mannheim/kraken/wiki/Training-german-newspapers",
+        "fileformat": ".traineddata",
+        "type": "Text recognition",
+        "layout-specs": [],
+        "text-specs": [
+            "Transcription"
+        ],
+        "license": {
+            "name": "PublicDomainMark 1.0",
+            "url": "https://creativecommons.org/publicdomain/mark/1.0/"
+        }
+    },
+    "software": {
+        "name": "Tesseract"
+    },
+    "training": {
+        "info": {
+            "trainingstype": "From scratch",
+            "direct": "20"
+        }
+    }
+}
